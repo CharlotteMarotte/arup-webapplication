@@ -2,10 +2,12 @@
 -- Drop Table
 --
 DROP TABLE IF EXISTS products;
-DROP TYPE IF EXISTS productRowType; 
-DROP PROCEDURE IF EXISTS GetAllProducts; 
-DROP PROCEDURE IF EXISTS GetProductById; 
 
+DROP TYPE IF EXISTS productRowType;
+
+DROP PROCEDURE IF EXISTS GetAllProducts;
+
+DROP PROCEDURE IF EXISTS GetProductById;
 
 --
 -- Create Table
@@ -75,31 +77,19 @@ CREATE TYPE productRowType as (
 
 -- Get all Product
 Create
-OR REPLACE FUNCTION GetAllProducts () RETURNS SETOF productRowType LANGUAGE plpgsql AS $$ BEGIN FOR movieid IN
+OR REPLACE FUNCTION GetAllProducts () 
+RETURNS SETOF productRowType
+LANGUAGE plpgsql 
+AS $$ 
+
+BEGIN 
+RETURN QUERY
 SELECT
-	showid
-FROM
-	shows LOOP
-SELECT
-	*
+	id, name, description, brand, price, image
 FROM
 	products
 ORDER BY
-	id ASC;
-
-RETURN QUERY
-SELECT
-	id,
-	name,
-	brand,
-	description,
-	price,
-	image;
-
-END LOOP;
-
-RETURN;
-
+	id ASC
 END $$;
 
 -- Get Product by ID
