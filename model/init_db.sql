@@ -60,7 +60,8 @@ VALUES
 --
 -- Create stored procedures
 --
-Get all Product
+
+-- Get all Product
 Create
 OR REPLACE PROCEDURE GetAllProducts () LANGUAGE plpgsql AS $$ BEGIN
 SELECT
@@ -72,62 +73,63 @@ ORDER BY
 
 END $$;
 
--- Get Product with ID
--- Create
--- OR REPLACE PROCEDURE GetProductById (productId INT) LANGUAGE plpgsql AS $ $ BEGIN
--- SELECT
--- 	*
--- FROM
--- 	products
--- WHERE
--- 	id = productId,
--- END $$;
+-- Get Product by ID
+Create
+OR REPLACE PROCEDURE GetProductById (productId INT) LANGUAGE plpgsql AS $ $ BEGIN
+SELECT
+	*
+FROM
+	products
+WHERE
+	id = productId;
+	
+END $$;
 
 -- -- Update Product
--- Create
--- OR REPLACE PROCEDURE UpdateProduct (
--- 	productId INT,
--- 	p_name varchar(30),
--- 	p_description varchar(255),
--- 	p_brand varchar(30),
--- 	p_image varchar(255),
--- 	p_price numeric (5, 2)
--- ) LANGUAGE plpgsql AS $$ BEGIN
--- UPDATE
--- 	products
--- SET
--- 	name = p_name,
--- 	description = p_description,
--- 	brand = p_brand,
--- 	price = p_price,
--- 	image = p_image
--- WHERE
--- 	id = productId;
+Create
+OR REPLACE PROCEDURE UpdateProduct (
+	productId INT,
+	p_name varchar(30),
+	p_description varchar(255),
+	p_brand varchar(30),
+	p_image varchar(255),
+	p_price numeric (5, 2)
+) LANGUAGE plpgsql AS $$ BEGIN
+UPDATE
+	products
+SET
+	name = p_name,
+	description = p_description,
+	brand = p_brand,
+	price = p_price,
+	image = p_image
+WHERE
+	id = productId;
 
--- END $$;
+END $$;
 
 -- -- Delete product
--- Create
--- OR REPLACE PROCEDURE DeleteProduct (productId INT) LANGUAGE plpgsql AS $$ BEGIN
--- DELETE FROM
--- 	products
--- WHERE
--- 	id = productId;
+Create
+OR REPLACE PROCEDURE DeleteProduct (productId INT) LANGUAGE plpgsql AS $$ BEGIN
+DELETE FROM
+	products
+WHERE
+	id = productId;
 
--- END $$;
+END $$;
 
 -- -- Add product
--- Create
--- OR REPLACE PROCEDURE AddProduct (
--- 	p_name varchar(30),
--- 	p_description varchar(255),
--- 	p_brand varchar(30),
--- 	p_image varchar(255),
--- 	p_price numeric (5, 2)
--- ) LANGUAGE plpgsql AS $$ BEGIN
--- INSERT INTO
--- 	products (name, description, brand, image, price)
--- Values
--- 	(p_name, p_description, p_brand, p_image, p_price);
+Create
+OR REPLACE PROCEDURE AddProduct (
+	p_name varchar(30),
+	p_description varchar(255),
+	p_brand varchar(30),
+	p_image varchar(255),
+	p_price numeric (5, 2)
+) LANGUAGE plpgsql AS $$ BEGIN
+INSERT INTO
+	products (name, description, brand, image, price)
+Values
+	(p_name, p_description, p_brand, p_image, p_price);
 
--- END $$;
+END $$;
