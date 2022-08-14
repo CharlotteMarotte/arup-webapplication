@@ -60,7 +60,6 @@ VALUES
 --
 -- Create stored procedures
 --
-
 -- Get all Product
 Create
 OR REPLACE PROCEDURE GetAllProducts () LANGUAGE plpgsql AS $$ BEGIN
@@ -75,14 +74,14 @@ END $$;
 
 -- Get Product by ID
 Create
-OR REPLACE PROCEDURE GetProductById (productId INT) LANGUAGE plpgsql AS $ $ BEGIN
+OR REPLACE PROCEDURE GetProductById (productId INT) LANGUAGE plpgsql AS $$ BEGIN
 SELECT
 	*
 FROM
 	products
 WHERE
 	id = productId;
-	
+
 END $$;
 
 -- -- Update Product
