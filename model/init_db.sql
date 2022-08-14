@@ -1,13 +1,9 @@
 --
--- Drop Table
+-- Drop Table and Typep
 --
 DROP TABLE IF EXISTS products;
 
-DROP TYPE IF EXISTS productRowType;
-
-DROP PROCEDURE IF EXISTS GetAllProducts;
-
-DROP PROCEDURE IF EXISTS GetProductById;
+DROP TYPE IF EXISTS productRowType CASCADE;
 
 --
 -- Create Table
@@ -77,26 +73,33 @@ CREATE TYPE productRowType as (
 
 -- Get all Product
 Create
-OR REPLACE FUNCTION GetAllProducts () 
-RETURNS SETOF productRowType
-LANGUAGE plpgsql 
-AS $$ 
-
-BEGIN 
-RETURN QUERY
+OR REPLACE FUNCTION GetAllProducts () RETURNS SETOF productRowType language plpgsql AS $$ BEGIN
 SELECT
-	id, name, description, brand, price, image
+	id,
+	name,
+	description,
+	brand,
+	price,
+	image
 FROM
 	products
 ORDER BY
-	id ASC
-END $$;
+	id ASC;
+
+END;
+
+$$;
 
 -- Get Product by ID
 Create
-OR REPLACE FUNCTION GetProductById (productId INT) LANGUAGE plpgsql AS $$ BEGIN
+OR REPLACE FUNCTION GetProductById (productId INT) RETURNS SETOF productRowType language plpgsql AS $$ BEGIN
 SELECT
-	*
+	id,
+	name,
+	description,
+	brand,
+	price,
+	image
 FROM
 	products
 WHERE
