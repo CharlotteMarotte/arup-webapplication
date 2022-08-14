@@ -1,4 +1,5 @@
 // Code thanks to https://www.atatus.com/blog/building-crud-rest-api-with-node-js-express-js-and-postgresql/#setting-up-an-express.js-server
+const { v4: uuidv4 } = require('uuid');
 
 require('dotenv').config();
 const Pool = require('pg').Pool;
@@ -18,17 +19,19 @@ const pool = new Pool({
 
 // GET all products
 const getProducts = (request, response) => {
+  let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
   pool.query('SELECT * FROM products ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error;
     }
-    response.status(200).json(results.rows);
+    response.set('random', randomValue).status(200).json(results.rows); // set() function to set the response HTTP header field to random UUID value
   });
 };
 
 // GET product with ID
 const getProductById = (request, response) => {
   let productId = parseInt(request.params.id);
+  let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
 
   pool.query(
     `SELECT * FROM products WHERE id = ${productId}`,
@@ -39,9 +42,10 @@ const getProductById = (request, response) => {
         // products array is empty... no product found
         response
           .status(404)
+          .set('random', randomValue)
           .send({ error: `Product with id ${productId} not found` });
       } else {
-        response.status(200).json(results.rows);
+        response.set('random', randomValue).status(200).json(results.rows); // set() function to set the response HTTP header field to random UUID value
       }
     }
   );
@@ -50,6 +54,7 @@ const getProductById = (request, response) => {
 // POST new product
 const createProduct = (request, response) => {
   let { name, description, brand, price, image } = request.body;
+  let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
 
   pool.query(
     `
@@ -63,7 +68,9 @@ const createProduct = (request, response) => {
           if (error) {
             throw error;
           }
-          response.status(201).json(results.rows); // return updated products array (with 201 for "new resource created")
+          response.set('random', randomValue).status(201).json(results.rows);
+          // return updated products array (with 201 for "new resource created")
+          // set() function to set the response HTTP header field to random UUID value
         });
       }
     }
@@ -74,6 +81,8 @@ const createProduct = (request, response) => {
 const updateProduct = (request, response) => {
   let productId = parseInt(request.params.id);
   const { name, description, brand, price, image } = request.body;
+  let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
+
   pool.query(
     `SELECT * FROM products WHERE id = ${productId}`, // does product exist?
     (error, results) => {
@@ -81,6 +90,7 @@ const updateProduct = (request, response) => {
         throw error;
       } else if (!results.rows) {
         response
+          .set('random', randomValue)
           .status(404)
           .send({ error: `Product with id ${productId} not found` });
       } else {
@@ -97,7 +107,12 @@ const updateProduct = (request, response) => {
                   if (error) {
                     throw error;
                   }
-                  response.status(200).json(results.rows); // return updated products array
+                  response
+                    .set('random', randomValue)
+                    .status(200)
+                    .json(results.rows);
+                  // set() function to set the response HTTP header field to random UUID value
+                  // return updated products array
                 }
               );
             }
@@ -111,6 +126,8 @@ const updateProduct = (request, response) => {
 // DELETE product
 const deleteProduct = (request, response) => {
   let productId = parseInt(request.params.id);
+  let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
+
   pool.query(
     `SELECT * FROM products WHERE id = ${productId}`, // does product exist?
     (error, results) => {
@@ -118,6 +135,7 @@ const deleteProduct = (request, response) => {
         throw error;
       } else if (!results.rows) {
         response
+          .set('random', randomValue)
           .status(404)
           .send({ error: `Product with id ${productId} not found` });
       } else {
@@ -132,7 +150,12 @@ const deleteProduct = (request, response) => {
                 if (error) {
                   throw error;
                 }
-                response.status(200).json(results.rows); // return updated products array
+                response
+                  .set('random', randomValue)
+                  .status(200)
+                  .json(results.rows);
+                // set() function to set the response HTTP header field to random UUID value
+                // return updated products array
               }
             );
           }
