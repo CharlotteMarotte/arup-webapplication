@@ -20,7 +20,7 @@ const pool = new Pool({
 // GET all products
 const getProducts = (request, response) => {
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
-  pool.query('SELECT * FROM products ORDER BY id ASC', (error, results) => {
+  pool.query('CALL GetAllProducts();', (error, results) => {
     if (error) {
       throw error;
     }
@@ -84,40 +84,19 @@ const updateProduct = (request, response) => {
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
 
   pool.query(
-    `SELECT * FROM products WHERE id = ${productId}`, // does product exist?
-    (error, results) => {
+    `CALL UpdateProduct (${productId}, ${name}, ${description}, ${brand}, ${image}, ${price});`, // update product
+    (error) => {
       if (error) {
         throw error;
-      } else if (!results.rows) {
-        response
-          .set('random', randomValue)
-          .status(404)
-          .send({ error: `Product with id ${productId} not found` });
       } else {
-        pool.query(
-          `UPDATE products SET name = '${name}', description = '${description}', brand = '${brand}', 
-          price = ${price}, image = '${image}' WHERE id = ${productId}`, // update product
-          (error) => {
-            if (error) {
-              throw error;
-            } else {
-              pool.query(
-                `SELECT * FROM products ORDER BY id`,
-                (error, results) => {
-                  if (error) {
-                    throw error;
-                  }
-                  response
-                    .set('random', randomValue)
-                    .status(200)
-                    .json(results.rows);
-                  // set() function to set the response HTTP header field to random UUID value
-                  // return updated products array
-                }
-              );
-            }
+        pool.query('CALL GetAllProducts();', (error, results) => {
+          if (error) {
+            throw error;
           }
-        );
+          response.set('random', randomValue).status(200).json(results.rows);
+          // set() function to set the response HTTP header field to random UUID value
+          // return updated products array
+        });
       }
     }
   );

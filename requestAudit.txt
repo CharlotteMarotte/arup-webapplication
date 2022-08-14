@@ -22,3 +22,15 @@ timestamp: 2022-08-14T17:44:53.039Z
  status_code: 304 
  header-randomValue: 80ee74c0-22b8-4692-a949-dceb537ab9e8
 
+timestamp: 2022-08-14T19:54:53.885Z 
+ method: POST 
+ URL: /products/ 
+ status_code: 201 
+ header-randomValue: e694abe1-5bdc-49a5-b9c8-13f816c58b9d
+
+timestamp: 2022-08-14T19:55:00.618Z 
+ method: POST 
+ URL: /products/ 
+ status_code: 201 
+ header-randomValue: 410f64eb-c671-4e61-a2ff-7d69a020c28e
+
