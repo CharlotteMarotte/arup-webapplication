@@ -1,0 +1,24 @@
+timestamp: 2022-08-14T17:44:51.435Z 
+ method: GET 
+ URL: /products 
+ status_code: 304 
+ header-randomValue: 0d59bdd8-81b4-4a5d-a370-29e06a0c2a17
+
+timestamp: 2022-08-14T17:44:51.461Z 
+ method: GET 
+ URL: /products 
+ status_code: 304 
+ header-randomValue: e39d58be-caec-4f06-bac4-053d2acb0b07
+
+timestamp: 2022-08-14T17:44:53.023Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: ea2e277f-1a9c-42da-9513-eef28703cdc5
+
+timestamp: 2022-08-14T17:44:53.039Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 80ee74c0-22b8-4692-a949-dceb537ab9e8
+
