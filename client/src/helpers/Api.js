@@ -25,7 +25,7 @@ class Api {
    * Delete product with ID 'productID'
    **/
 
-  static async deleteproduct(productID) {
+  static async deleteProduct(productID) {
     return await this._doFetch(`/products/${productID}`, 'DELETE');
   }
 
