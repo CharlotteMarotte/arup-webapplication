@@ -13,6 +13,8 @@ DROP PROCEDURE IF EXISTS deleteproduct;
 
 DROP PROCEDURE IF EXISTS addproduct;
 
+DROP PROCEDURE IF EXISTS addclothes;
+
 -- drop type last, because functions depend on it
 DROP TYPE IF EXISTS productrowtype;
 

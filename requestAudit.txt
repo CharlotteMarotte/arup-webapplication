@@ -436,3 +436,129 @@ timestamp: 2022-08-15T12:08:26.110Z
  status_code: 200 
  header-randomValue: 486420ef-d70a-49a6-8b4c-b5500342e337
 
+timestamp: 2022-08-15T21:13:42.263Z 
+ method: GET 
+ URL: /products 
+ status_code: 200 
+ header-randomValue: ed6e0e66-bfee-4aae-98dd-f3a956d26a28
+
+timestamp: 2022-08-15T21:13:42.600Z 
+ method: GET 
+ URL: /products 
+ status_code: 304 
+ header-randomValue: 4ca701f2-343f-4845-a3cc-e8e525dc6b48
+
+timestamp: 2022-08-15T21:19:52.205Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 200 
+ header-randomValue: 17581123-a270-4006-9f6b-1b51939eace8
+
+timestamp: 2022-08-15T21:19:52.220Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: e2af12d6-25d1-44f3-b80c-65dfe70809bf
+
+timestamp: 2022-08-15T21:19:53.945Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 4cfe27be-cec8-45a0-90c6-5f54b0ab12bc
+
+timestamp: 2022-08-15T21:19:53.963Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 5bafa251-da95-4d20-8611-135b1c52a106
+
+timestamp: 2022-08-15T21:20:23.149Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 5cc2ffe3-01d3-4ecb-8df8-1fb2844003f0
+
+timestamp: 2022-08-15T21:20:25.166Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 52da0ef9-4bc6-444c-9249-30f54a079e5b
+
+timestamp: 2022-08-15T21:20:40.923Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 200 
+ header-randomValue: 1ca4de38-50f9-4fa0-be56-3984e07cff57
+
+timestamp: 2022-08-15T21:20:44.722Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 8dfd5399-6855-4108-a418-f41fbd9b7ea1
+
+timestamp: 2022-08-15T21:20:44.739Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 83895809-e7e8-448d-9b3a-060441604ffb
+
+timestamp: 2022-08-15T21:20:44.764Z 
+ method: GET 
+ URL: /products 
+ status_code: 304 
+ header-randomValue: d27bc06e-94f3-420f-bb14-3311b50a2238
+
+timestamp: 2022-08-15T21:20:44.774Z 
+ method: GET 
+ URL: /products 
+ status_code: 304 
+ header-randomValue: b83e1c66-1c7b-4a6f-80ae-ad4198066d0e
+
+timestamp: 2022-08-15T21:20:54.056Z 
+ method: PUT 
+ URL: /products/2 
+ status_code: 200 
+ header-randomValue: 5566c7ab-0399-4c05-8c62-6f5732ca9dbb
+
+timestamp: 2022-08-15T21:21:05.159Z 
+ method: GET 
+ URL: /products/3 
+ status_code: 304 
+ header-randomValue: 4562193d-b108-4779-bf92-934be031b001
+
+timestamp: 2022-08-15T21:21:05.168Z 
+ method: GET 
+ URL: /products/3 
+ status_code: 304 
+ header-randomValue: 09a428cc-baaf-4354-8798-2c7723ead5c9
+
+timestamp: 2022-08-15T21:21:06.126Z 
+ method: DELETE 
+ URL: /products/3 
+ status_code: 200 
+ header-randomValue: 6e517e16-07a0-42d5-a235-9587468977e0
+
+timestamp: 2022-08-15T21:21:08.982Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 200 
+ header-randomValue: 395ba898-9c4c-47cb-85d4-2487932ac0d4
+
+timestamp: 2022-08-15T21:21:09.015Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 32813cff-089b-4a21-b01a-0015f1071690
+
+timestamp: 2022-08-15T21:21:10.444Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 14be32a6-1e5e-4190-8808-85d717db292c
+
+timestamp: 2022-08-15T21:21:10.458Z 
+ method: GET 
+ URL: /products/2 
+ status_code: 304 
+ header-randomValue: 4868d5c8-c05e-4ef5-8e3b-8cd9f3c171f6
+

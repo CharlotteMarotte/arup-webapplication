@@ -60,6 +60,7 @@ export default function ProductForm(props) {
             Brand
           </label>
           <input
+            required
             type="text"
             className="form-control"
             id="brand"
@@ -73,6 +74,7 @@ export default function ProductForm(props) {
             Price (in €){' '}
           </label>
           <input
+            required
             type="number"
             className="form-control"
             id="price"
@@ -88,6 +90,7 @@ export default function ProductForm(props) {
             Name{' '}
           </label>
           <input
+            required
             type="text"
             className="form-control"
             id="name"
