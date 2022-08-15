@@ -1,5 +1,4 @@
-// Code thanks to https://www.atatus.com/blog/building-crud-rest-api-with-node-js-express-js-and-postgresql/#setting-up-an-express.js-server
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid'); // to create unique IDs to send with header
 
 require('dotenv').config();
 const Pool = require('pg').Pool;
@@ -18,130 +17,96 @@ const pool = new Pool({
 });
 
 // GET all products
-const getProducts = (request, response) => {
+const getProducts = async (request, response) => {
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
-  pool.query('CALL GetAllProducts();', (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.set('random', randomValue).status(200).json(results.rows); // set() function to set the response HTTP header field to random UUID value
-  });
+  try {
+    const res = await pool.query('SELECT * FROM getAllProducts();');
+    // set() function to set the response HTTP header field to random UUID value
+    response.set('random', randomValue).status(200).send(res.rows);
+  } catch (err) {
+    response.status(500).send({
+      error: err.message,
+    });
+  }
 };
 
 // GET product with ID
-const getProductById = (request, response) => {
+const getProductById = async (request, response) => {
   let productId = parseInt(request.params.id);
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
-
-  pool.query(
-    `SELECT * FROM products WHERE id = ${productId}`,
-    (error, results) => {
-      if (error) {
-        throw error;
-      } else if (!results.rows) {
-        // products array is empty... no product found
-        response
-          .status(404)
-          .set('random', randomValue)
-          .send({ error: `Product with id ${productId} not found` });
-      } else {
-        response.set('random', randomValue).status(200).json(results.rows); // set() function to set the response HTTP header field to random UUID value
-      }
+  try {
+    const res = await pool.query(`SELECT * FROM GetProductById(${productId});`);
+    if (!res.rows) {
+      // products array is empty... no product found
+      response
+        .status(404)
+        .set('random', randomValue)
+        .send({
+          error: `Product with id ${productId} not found`,
+        });
+    } else {
+      // set() function to set the response HTTP header field to random UUID value
+      response.set('random', randomValue).status(200).send(res.rows);
     }
-  );
+  } catch (err) {
+    response.status(500).send({
+      error: err.message,
+    });
+  }
 };
 
 // POST new product
-const createProduct = (request, response) => {
+const createProduct = async (request, response) => {
   let { name, description, brand, price, image } = request.body;
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
-
-  pool.query(
-    `
-    INSERT INTO products (name, description, brand, price, image)
-    VALUES ('${name}', '${description}', '${brand}', ${price}, '${image}')`, // add new product
-    (error) => {
-      if (error) {
-        throw error;
-      } else {
-        pool.query(`SELECT * FROM products`, (error, results) => {
-          if (error) {
-            throw error;
-          }
-          response.set('random', randomValue).status(201).json(results.rows);
-          // return updated products array (with 201 for "new resource created")
-          // set() function to set the response HTTP header field to random UUID value
-        });
-      }
-    }
-  );
+  try {
+    await pool.query(
+      `CALL AddProduct (${name}, ${description}, ${brand}, ${image}, ${price});`
+    );
+    const res = await pool.query('SELECT * FROM getAllProducts();');
+    // set() function to set the response HTTP header field to random UUID value
+    response.set('random', randomValue).status(200).send(res.rows);
+  } catch (err) {
+    response.status(500).send({
+      error: err.message,
+    });
+  }
 };
 
 // PUT modified product
-const updateProduct = (request, response) => {
+const updateProduct = async (request, response) => {
   let productId = parseInt(request.params.id);
   const { name, description, brand, price, image } = request.body;
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
-
-  pool.query(
-    `CALL UpdateProduct (${productId}, ${name}, ${description}, ${brand}, ${image}, ${price});`, // update product
-    (error) => {
-      if (error) {
-        throw error;
-      } else {
-        pool.query('CALL GetAllProducts();', (error, results) => {
-          if (error) {
-            throw error;
-          }
-          response.set('random', randomValue).status(200).json(results.rows);
-          // set() function to set the response HTTP header field to random UUID value
-          // return updated products array
-        });
-      }
-    }
-  );
+  try {
+    await pool.query(
+      `CALL UpdateProduct (${productId}, ${name}, ${description}, ${brand}, ${image}, ${price});`
+    ); // update product
+    const res = await pool.query('SELECT * FROM getAllProducts();');
+    // set() function to set the response HTTP header field to random UUID value
+    response.set('random', randomValue).status(200).send(res.rows);
+  } catch (err) {
+    response.status(500).send({
+      error: err.message,
+    });
+  }
 };
 
 // DELETE product
-const deleteProduct = (request, response) => {
+const deleteProduct = async (request, response) => {
   let productId = parseInt(request.params.id);
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
 
-  pool.query(
-    `SELECT * FROM products WHERE id = ${productId}`, // does product exist?
-    (error, results) => {
-      if (error) {
-        throw error;
-      } else if (!results.rows) {
-        response
-          .set('random', randomValue)
-          .status(404)
-          .send({ error: `Product with id ${productId} not found` });
-      } else {
-        pool.query(`DELETE FROM products WHERE id = ${productId}`, (error) => {
-          // delete product
-          if (error) {
-            throw error;
-          } else {
-            pool.query(
-              `SELECT * FROM products ORDER BY id`,
-              (error, results) => {
-                if (error) {
-                  throw error;
-                }
-                response
-                  .set('random', randomValue)
-                  .status(200)
-                  .json(results.rows);
-                // set() function to set the response HTTP header field to random UUID value
-                // return updated products array
-              }
-            );
-          }
-        });
-      }
-    }
-  );
+  try {
+    await pool.query(`CALL DeleteProduct(${productId});`); // update product
+    const res = await pool.query('SELECT * FROM getAllProducts();');
+    // set() function to set the response HTTP header field to random UUID value
+    response.set('random', randomValue).status(200).send(res.rows);
+  } catch (err) {
+    response.status(500).send({
+      error: err.message,
+    });
+  }
 };
 
 module.exports = {

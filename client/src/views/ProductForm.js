@@ -20,11 +20,11 @@ export default function ProductForm(props) {
 
   useEffect(() => {
     setProductData({
-      name: props.product.name,
-      brand: props.product.brand,
-      price: props.product.price,
-      description: props.product.description,
-      image: props.product.image,
+      name: props.product.p_name,
+      brand: props.product.p_brand,
+      price: props.product.p_price,
+      description: props.product.p_description,
+      image: props.product.p_image,
     });
   }, [props]);
 

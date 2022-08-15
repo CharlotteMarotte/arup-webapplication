@@ -1,9 +1,20 @@
 --
--- Drop Table and Typep
+-- Drop Table and Type
 --
 DROP TABLE IF EXISTS products;
 
-DROP TYPE IF EXISTS productRowType CASCADE;
+DROP FUNCTION IF EXISTS GetAllProducts;
+
+DROP FUNCTION IF EXISTS GetProductById;
+
+DROP PROCEDURE IF EXISTS UpdateProduct;
+
+DROP PROCEDURE IF EXISTS DeleteProduct;
+
+DROP PROCEDURE IF EXISTS AddProduct;
+
+-- drop type last, because functions depend on it
+DROP TYPE IF EXISTS productRowType;
 
 --
 -- Create Table
@@ -60,20 +71,22 @@ VALUES
 	);
 
 --
--- Create stored procedures
+-- Create type for return of get methods
 --
-CREATE TYPE productRowType as (
-	p_id INT,
-	p_name varchar(30),
-	p_description varchar(255),
-	p_brand varchar(30),
-	p_price numeric (5, 2),
-	p_image varchar(255)
+CREATE TYPE productRowType AS (
+	p_id integer,
+	p_name character varying(30),
+	p_description character varying(255),
+	p_brand character varying(30),
+	p_price numeric(5, 2),
+	p_image character varying(255)
 );
 
+--
+-- Create stored procedures
+--
 -- Get all Product
-Create
-OR REPLACE FUNCTION GetAllProducts () RETURNS SETOF productRowType language plpgsql AS $$ BEGIN
+CREATE FUNCTION getAllProducts() RETURNS SETOF productRowType LANGUAGE plpgsql AS $$ BEGIN RETURN QUERY
 SELECT
 	id,
 	name,
@@ -91,8 +104,7 @@ END;
 $$;
 
 -- Get Product by ID
-Create
-OR REPLACE FUNCTION GetProductById (productId INT) RETURNS SETOF productRowType language plpgsql AS $$ BEGIN
+CREATE FUNCTION getProductById(productid integer) RETURNS SETOF productRowType LANGUAGE plpgsql AS $$ BEGIN RETURN QUERY
 SELECT
 	id,
 	name,

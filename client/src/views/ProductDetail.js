@@ -21,7 +21,7 @@ export default function ProductDetail(props) {
                 <div className=" p-3">
                   <div className="text-center p-4">
                     {' '}
-                    <img src={props.product.image} width="250" alt={props.product.name}/>{' '}
+                    <img src={props.product.p_image} width="250" alt={props.product.p_name}/>{' '}
                   </div>
                 </div>
               </div>
@@ -38,28 +38,28 @@ export default function ProductDetail(props) {
                   <div className="mt-4 mb-3">
                     {' '}
                     <span className="text-uppercase text-muted ">
-                      {props.product.brand}
+                      {props.product.p_brand}
                     </span>
-                    <h5 className="text-uppercase">{props.product.name}</h5>
+                    <h5 className="text-uppercase">{props.product.p_name}</h5>
                     <div className=" d-flex flex-row align-items-center">
                       {' '}
-                      <span>{props.product.price} €</span>
+                      <span>{props.product.p_price} €</span>
                     </div>
                   </div>
-                  <p>{props.product.description}</p>
+                  <p>{props.product.p_description}</p>
 
                   <div className="mt-4 align-items-center">
                     {' '}
                     <button
                       className="btn btn-outline-danger mr-2 px-4"
-                      onClick={(p) => props.deleteProductCb(props.product.id)}
+                      onClick={(p) => props.deleteProductCb(props.product.p_id)}
                     >
                       {' '}
                       Delete
                     </button>
                     <Link
                       className="btn btn-outline-primary m-2 px-4"
-                      to={`/product/update/${props.product.id}`}
+                      to={`/product/update/${props.product.p_id}`}
                     >
                       {' '}
                       Update
