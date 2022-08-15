@@ -15,6 +15,7 @@ export default function ProductDetail(props) {
     props.getProductByIDCb(id);
   }, []);
 
+ 
   return (
     <div className="container mt-5 mb-5">
       <h1 className="text-center">Product Details</h1>
@@ -29,7 +30,7 @@ export default function ProductDetail(props) {
                     <img
                       // placeholder image if image URL not filled
                       src={
-                        props.product.p_image.length > 0
+                        (props.product.p_image && props.product.p_image.length > 0)
                           ? props.product.p_image
                           : 'https://i.pinimg.com/originals/a5/e0/1d/a5e01db694b47cd07018813ce821a4e1.png'
                       }

@@ -13,8 +13,8 @@ export default function ProductCard(props) {
         <img
           // placeholder image if image URL not filled
           src={
-            props.product.p_image.length > 0
-              ? props.product.p_image
+            (props.product.p_image && props.product.p_image.length > 0)
+            ? props.product.p_image
               : 'https://i.pinimg.com/originals/a5/e0/1d/a5e01db694b47cd07018813ce821a4e1.png'
           }
           className="card-img-top d-flex align-items-stretch"
