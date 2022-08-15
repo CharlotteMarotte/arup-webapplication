@@ -8,8 +8,8 @@ import ProductDetail from './views/ProductDetail';
 function App() {
   const navigate = useNavigate();
 
-  let [products, setProducts] = useState([]);
-  let [selectedProduct, setSelectedProduct] = useState({});
+  let [products, setProducts] = useState([]); // holds all products
+  let [selectedProduct, setSelectedProduct] = useState({}); // holds product when it is chosen by clicking "Details" in Card or "Update" in DetailView
 
   // useEffect() will call getproducts() when App is mounted on the DOM
   useEffect(() => {
@@ -54,6 +54,7 @@ function App() {
         let products = response.data;
         setProducts(products); // set products state with updated products, so it can be used by other components/views
         navigate(`/`); // navigates to products grid
+        alert("Product got updated");  
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }
@@ -70,6 +71,7 @@ function App() {
         let products = response.data;
         setProducts(products); // set products state with updated products, so it can be used by other components/views
         navigate(`/`); // navigates to products grid
+        alert("Product got deleted");  
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }
@@ -80,19 +82,12 @@ function App() {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <Productgrid
-            products={products}
-          />
-        }
-      />
+      <Route path="/" element={<Productgrid products={products} />} />
       <Route
         path="/product/details/:id"
         element={
           <ProductDetail
-            deleteProductCb={id => deleteProduct(id)}
+            deleteProductCb={(id) => deleteProduct(id)}
             getProductByIDCb={getProductByID}
             product={selectedProduct}
           />

@@ -2,6 +2,11 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
+/*
+Detail view of product, shows all information including description and 
+offers option to delete and update information with button
+*/
+
 export default function ProductDetail(props) {
   let { id } = useParams();
 
@@ -21,7 +26,16 @@ export default function ProductDetail(props) {
                 <div className=" p-3">
                   <div className="text-center p-4">
                     {' '}
-                    <img src={props.product.p_image} width="250" alt={props.product.p_name}/>{' '}
+                    <img
+                      // placeholder image if image URL not filled
+                      src={
+                        props.product.p_image.length > 0
+                          ? props.product.p_image
+                          : 'https://i.pinimg.com/originals/a5/e0/1d/a5e01db694b47cd07018813ce821a4e1.png'
+                      }
+                      width="250"
+                      alt={props.product.p_name}
+                    />{' '}
                   </div>
                 </div>
               </div>

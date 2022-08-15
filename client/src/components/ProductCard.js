@@ -2,12 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './ProductCard.css';
 
+/*
+Shows all information about a product except description, responsive with Bootstrap
+*/
+
 export default function ProductCard(props) {
   return (
     <div className="col">
       <div className="card text-center" style={{ width: '18rem' }}>
         <img
-          src={props.product.p_image}
+          // placeholder image if image URL not filled
+          src={
+            props.product.p_image.length > 0
+              ? props.product.p_image
+              : 'https://i.pinimg.com/originals/a5/e0/1d/a5e01db694b47cd07018813ce821a4e1.png'
+          }
           className="card-img-top d-flex align-items-stretch"
           alt={props.product.p_name}
         />

@@ -10,6 +10,10 @@ let DEFAULT_FORM = {
   image: '',
 };
 
+/*
+Form to take in all updated information about product
+*/
+
 export default function ProductForm(props) {
   let { id } = useParams();
 
@@ -18,6 +22,7 @@ export default function ProductForm(props) {
     props.getProductByIDCb(id);
   }, []);
 
+  // fills form fields with previous data about product from database
   useEffect(() => {
     setProductData({
       name: props.product.p_name,
@@ -43,11 +48,11 @@ export default function ProductForm(props) {
   async function handleSubmit(event) {
     event.preventDefault();
     props.updateProductCb(id, productData);
-    setProductData(DEFAULT_FORM);
+    setProductData(DEFAULT_FORM); // resets form fields
   }
 
   return (
-    <div>
+    <div className="row">
       <h1 className="text-center">Update Product Details</h1>
       <form className="row g-3 col-8 offset-2 mb-5" onSubmit={handleSubmit}>
         <div className="col-md-6">
@@ -116,7 +121,11 @@ export default function ProductForm(props) {
           />
         </div>
         <div className="col-12">
-          <Link type="button" className="btn btn-outline-secondary m-2 px-4" to="/">
+          <Link
+            type="button"
+            className="btn btn-outline-secondary m-2 px-4"
+            to="/"
+          >
             Cancel
           </Link>
           <button type="submit" className="btn btn-outline-primary">
