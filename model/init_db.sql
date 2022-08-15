@@ -3,18 +3,18 @@
 --
 DROP TABLE IF EXISTS products;
 
-DROP FUNCTION IF EXISTS GetAllProducts;
+DROP FUNCTION IF EXISTS getallproducts;
 
-DROP FUNCTION IF EXISTS GetProductById;
+DROP FUNCTION IF EXISTS getproductbyid;
 
-DROP PROCEDURE IF EXISTS UpdateProduct;
+DROP PROCEDURE IF EXISTS updateproduct;
 
-DROP PROCEDURE IF EXISTS DeleteProduct;
+DROP PROCEDURE IF EXISTS deleteproduct;
 
-DROP PROCEDURE IF EXISTS AddProduct;
+DROP PROCEDURE IF EXISTS addproduct;
 
 -- drop type last, because functions depend on it
-DROP TYPE IF EXISTS productRowType;
+DROP TYPE IF EXISTS productrowtype;
 
 --
 -- Create Table
@@ -73,7 +73,7 @@ VALUES
 --
 -- Create type for return of get methods
 --
-CREATE TYPE productRowType AS (
+CREATE TYPE productrowtype AS (
 	p_id integer,
 	p_name character varying(30),
 	p_description character varying(255),
@@ -86,7 +86,7 @@ CREATE TYPE productRowType AS (
 -- Create stored procedures
 --
 -- Get all Product
-CREATE FUNCTION getAllProducts() RETURNS SETOF productRowType LANGUAGE plpgsql AS $$ BEGIN RETURN QUERY
+CREATE FUNCTION getallproducts() RETURNS SETOF productrowtype LANGUAGE plpgsql AS $$ BEGIN RETURN QUERY
 SELECT
 	id,
 	name,
@@ -104,7 +104,7 @@ END;
 $$;
 
 -- Get Product by ID
-CREATE FUNCTION getProductById(productid integer) RETURNS SETOF productRowType LANGUAGE plpgsql AS $$ BEGIN RETURN QUERY
+CREATE FUNCTION getproductbyid(productid integer) RETURNS SETOF productrowtype LANGUAGE plpgsql AS $$ BEGIN RETURN QUERY
 SELECT
 	id,
 	name,
@@ -121,7 +121,7 @@ END $$;
 
 -- -- Update Product
 Create
-OR REPLACE PROCEDURE UpdateProduct (
+OR REPLACE PROCEDURE updateproduct (
 	productId INT,
 	p_name varchar(30),
 	p_description varchar(255),
@@ -144,7 +144,7 @@ END $$;
 
 -- -- Delete product
 Create
-OR REPLACE PROCEDURE DeleteProduct (productId INT) LANGUAGE plpgsql AS $$ BEGIN
+OR REPLACE PROCEDURE deleteproduct (productId INT) LANGUAGE plpgsql AS $$ BEGIN
 DELETE FROM
 	products
 WHERE
@@ -154,7 +154,7 @@ END $$;
 
 -- -- Add product
 Create
-OR REPLACE PROCEDURE AddProduct (
+OR REPLACE PROCEDURE addproduct (
 	p_name varchar(30),
 	p_description varchar(255),
 	p_brand varchar(30),
@@ -167,3 +167,5 @@ Values
 	(p_name, p_description, p_brand, p_image, p_price);
 
 END $$;
+
+

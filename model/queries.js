@@ -16,11 +16,30 @@ const pool = new Pool({
   multipleStatements: true,
 });
 
+// pg-promise dependencies
+var promise = require('bluebird');
+var options = {
+  // Initialization Options
+  promiseLib: promise,
+};
+var pgp = require('pg-promise')(options);
+const cn = {
+  host: DB_HOST,
+  port: 5432,
+  database: DB_NAME,
+  user: DB_USER,
+  password: DB_PASS,
+  max: 30, // use up to 30 connections
+};
+var connectionString = 'postgres://localhost:5432/products';
+
+var db = pgp(cn);
+
 // GET all products
 const getProducts = async (request, response) => {
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
   try {
-    const res = await pool.query('SELECT * FROM getAllProducts();');
+    const res = await pool.query('SELECT * FROM getallproducts();');
     // set() function to set the response HTTP header field to random UUID value
     response.set('random', randomValue).status(200).send(res.rows);
   } catch (err) {
@@ -35,7 +54,7 @@ const getProductById = async (request, response) => {
   let productId = parseInt(request.params.id);
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
   try {
-    const res = await pool.query(`SELECT * FROM GetProductById(${productId});`);
+    const res = await pool.query(`SELECT * FROM getproductbyid(${productId});`);
     if (!res.rows) {
       // products array is empty... no product found
       response
@@ -56,14 +75,13 @@ const getProductById = async (request, response) => {
 };
 
 // POST new product
-const createProduct = async (request, response) => {
+const addProduct = async (request, response) => {
   let { name, description, brand, price, image } = request.body;
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
   try {
-    await pool.query(
-      `CALL AddProduct (${name}, ${description}, ${brand}, ${image}, ${price});`
-    );
-    const res = await pool.query('SELECT * FROM getAllProducts();');
+    // use pg-promise with proc function to execute procedure
+    await db.proc('addproduct', [name, description, brand, image, price]);
+    const res = await pool.query('SELECT * FROM getallproducts();');
     // set() function to set the response HTTP header field to random UUID value
     response.set('random', randomValue).status(200).send(res.rows);
   } catch (err) {
@@ -79,10 +97,17 @@ const updateProduct = async (request, response) => {
   const { name, description, brand, price, image } = request.body;
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
   try {
-    await pool.query(
-      `CALL UpdateProduct (${productId}, ${name}, ${description}, ${brand}, ${image}, ${price});`
-    ); // update product
-    const res = await pool.query('SELECT * FROM getAllProducts();');
+    // use pg-promise with proc function to execute procedure
+
+    await db.proc('updateproduct', [
+      productId,
+      name,
+      description,
+      brand,
+      image,
+      price,
+    ]);
+    const res = await pool.query('SELECT * FROM getallproducts();');
     // set() function to set the response HTTP header field to random UUID value
     response.set('random', randomValue).status(200).send(res.rows);
   } catch (err) {
@@ -98,8 +123,8 @@ const deleteProduct = async (request, response) => {
   let randomValue = uuidv4(); // UUID returns 36 character string containing numbers, designed to be globally unique
 
   try {
-    await pool.query(`CALL DeleteProduct(${productId});`); // update product
-    const res = await pool.query('SELECT * FROM getAllProducts();');
+    await pool.query(`CALL deleteproduct(${productId});`); // update product
+    const res = await pool.query('SELECT * FROM getallproducts();');
     // set() function to set the response HTTP header field to random UUID value
     response.set('random', randomValue).status(200).send(res.rows);
   } catch (err) {
@@ -112,7 +137,7 @@ const deleteProduct = async (request, response) => {
 module.exports = {
   getProducts,
   getProductById,
-  createProduct,
+  addProduct,
   updateProduct,
   deleteProduct,
 };

@@ -51,7 +51,7 @@ app.get('/', (request, response) => {
 });
 app.get('/products', db.getProducts);
 app.get('/products/:id', db.getProductById);
-app.post('/products', db.createProduct);
+app.post('/products', db.addProduct);
 app.put('/products/:id', db.updateProduct);
 app.delete('/products/:id', db.deleteProduct);
 
