@@ -1,5 +1,29 @@
 .card-img-top {
-    width: 100%;
-    height: 25vw;
-    object-fit: cover;
+  width: 100%;
+  object-fit: contain;
+}
+
+/* Bootstrap lg breakpoint = desktops, 992px and up
+ */
+ @media only screen and (min-width: 992px) {
+  .card-img-top {
+    height: 20vw;
   }
+}
+
+/* 
+increased height for images in card if 2 columns
+Bootstrap md breakpoint = tablets, 768px and up
+ */
+ @media only screen and (min-width: 768px) {
+  .card-img-top {
+    height: 30vw;
+  }
+}
+
+/* increased height for images in card if only 1 column */
+@media only screen and (max-width: 767px) {
+  .card-img-top {
+    height: 55vw;
+  }
+}

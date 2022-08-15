@@ -9,7 +9,7 @@ Shows all information about a product except description, responsive with Bootst
 export default function ProductCard(props) {
   return (
     <div className="col">
-      <div className="card text-center" style={{ width: '18rem' }}>
+      <div className="card text-center" >
         <img
           // placeholder image if image URL not filled
           src={

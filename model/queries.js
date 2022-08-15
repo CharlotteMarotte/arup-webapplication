@@ -31,7 +31,6 @@ const cn = {
   password: DB_PASS,
   max: 30, // use up to 30 connections
 };
-var connectionString = 'postgres://localhost:5432/products';
 
 var db = pgp(cn);
 

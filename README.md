@@ -25,8 +25,8 @@ The App consists of one DB table, called `products`, that manages the informatio
 ## Run the App
 
 1. In the server terminal, type `npm run start` to start the server.
-1. In the client terminal, type `npm run start` to start the client.
-1. Point your browser at `http://localhost:3000`.
+2. In the client terminal, type `npm run start` to start the client.
+3. Point your browser at `http://localhost:3000`.
 
 
 

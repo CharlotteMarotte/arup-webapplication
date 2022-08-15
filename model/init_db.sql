@@ -67,7 +67,7 @@ VALUES
 		'These are for cozy days',
 		'Home Wear',
 		8.25,
-		'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fae01.alicdn.com%2Fkf%2FHTB1FDsZKb1YBuNjSszeq6yblFXao%2FSocks-for-Women-Winter-Warm-Sleep-Bed-Socks-Floor-Home-Fluffy-Socks-Pure-Color-Female-Soft.jpg&f=1&nofb=1'
+		'https://img.joomcdn.net/52738a3ef70ca959da08f1ef85ca2e6016777ad5_1024_1024.jpeg'
 	);
 
 --
