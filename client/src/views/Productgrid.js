@@ -12,7 +12,7 @@ export default function Productgrid(props) {
       <h1 className="text-center">All products</h1>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
         {props.products.map((p) => (
-          <ProductCard key={p.id} product={p} />
+          <ProductCard key={p.p_id} product={p} />
         ))}
       </div>
     </div>
